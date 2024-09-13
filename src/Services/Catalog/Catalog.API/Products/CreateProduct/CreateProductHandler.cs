@@ -1,6 +1,5 @@
 using BuildingBlocks.CQRS;
 using Catalo.API.Models;
-using MediatR;
 
 namespace Catalog.API.Products.CreateProduct;
 
@@ -8,7 +7,7 @@ public record CreateProductCommand(string Name, List<string> Category, string De
 
 public record CreateProductResult(Guid Id);
 
-internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     /// <summary>
     /// Handles the creation of a new product.
@@ -33,6 +32,8 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
         };
 
         // Save to Database
+        session.Store(product);
+        session.SaveChanges();
 
         return new CreateProductResult(product.Id);
     }
