@@ -9,6 +9,7 @@
       "type": "shell",
       "args": [
         "build",
+        "Catalog.sln",
         // Ask dotnet build to generate full paths for file names.
         "/property:GenerateFullPaths=true",
         // Do not generate summary otherwise it leads to duplicate errors in Problems panel
@@ -18,7 +19,10 @@
       "presentation": {
         "reveal": "silent"
       },
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
     },
     {
       "label": "build_watch_Catalog.API",
