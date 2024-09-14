@@ -33,7 +33,7 @@ internal class CreateProductCommandHandler(IDocumentSession session) : ICommandH
 
         // Save to Database
         session.Store(product);
-        session.SaveChanges();
+        await session.SaveChangesAsync();
 
         return new CreateProductResult(product.Id);
     }
