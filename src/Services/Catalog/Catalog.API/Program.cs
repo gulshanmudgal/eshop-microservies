@@ -1,10 +1,15 @@
+using BuildingBlocks.Behaviours;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Services to the container
 builder.Services.AddCarter(null);
+var assembly = typeof(Program).Assembly;
+builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddMediatR(config =>
 {
-    config.RegisterServicesFromAssemblies(typeof(Program).Assembly);
+    config.RegisterServicesFromAssemblies(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
 });
 builder.Services.AddMarten((opts) =>
 {
