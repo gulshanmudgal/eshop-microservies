@@ -29,7 +29,7 @@ internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<Upd
 
         if (product is null)
         {
-            throw new ProductNotFoundExceptin();
+            throw new ProductNotFoundExceptin(command.Id);
         }
 
         product.Name = command.Name;

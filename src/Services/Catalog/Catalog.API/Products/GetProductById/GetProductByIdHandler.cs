@@ -14,7 +14,7 @@ public class GetProductyIdQueryHandler(IDocumentSession session, ILogger<GetProd
 
         if (product is null)
         {
-            throw new ProductNotFoundExceptin();
+            throw new ProductNotFoundExceptin(query.Id);
         }
 
         return new GetProductByIdResult(product);

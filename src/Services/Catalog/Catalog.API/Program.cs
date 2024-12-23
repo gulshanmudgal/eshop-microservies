@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviours;
+using BuildingBlocks.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +21,11 @@ builder.Services.AddMarten((opts) =>
     }
     opts.Connection(connectionString);
 }).UseLightweightSessions();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
 // Configure the HTTP Request pipeline
 app.MapCarter();
+app.UseExceptionHandler(opt => { });
 app.Run();
