@@ -6,12 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Exceptions;
 
-public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler
+public class CustomExceptionHandler() : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        logger.LogError("Error Message: {exception.Message}, Time of occurence: {time}", exception.Message, DateTime.UtcNow);
-
         (string Detail, string Title, int StatusCode) details = exception switch
         {
             BadRequestException => (exception.Message, exception.GetType().Name, StatusCodes.Status400BadRequest),
